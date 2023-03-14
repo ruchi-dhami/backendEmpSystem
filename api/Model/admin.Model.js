@@ -36,6 +36,40 @@ adminSchema.pre('save',function(next){
 console.log("message error")
   }
 })
+adminSchema.pre("save", function (next) {
+  const email = this.email;
+  const re = /\S+@\S+\.\S+/;
+  if (re.test(email)) {
+    next();
+  } else {
+    const error = new Error("Invalid email address");
+    next(error);
+  }
+});
+adminSchema.pre("save", function (next) {
+  const password = this.password;
+ 
+  if (password>3) {
+    next();
+  } else {
+    const error = new Error("Password must be more than 3 characters");
+    next(error);
+  }
+});
+
+adminSchema.post("save", function (next) {
+  user = this;
+  if (!user.password) {
+    return next();
+  }
+  try {
+    hash = bcrypt.hash(user.password, 10);
+    user.password = hash;
+    next();
+  } catch {
+    console.log("message error");
+  }
+});
 
 
 module.exports = Admin

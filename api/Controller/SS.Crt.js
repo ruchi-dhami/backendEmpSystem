@@ -1,5 +1,7 @@
 var jwt = require("jsonwebtoken");
 const secretkey = "seebiz";
+var validator = require("email-validator");
+
 const Admin = require("../Model/admin.Model");
 const ClassName = require("../Model/Class.Model");
 const StudentModel = require("../Model/student.Model");
@@ -8,9 +10,10 @@ const asynclogin = async (req, res) => {
   console.log(req.body);
   const { email, password } = req.body;
 
+  const user = await Admin.findOne({ email, password });
+
   try {
     // Find a user with matching email and password
-    const user = await Admin.findOne({ email, password });
 
     if (!user) {
       // Return an error response if no user is found
