@@ -6,7 +6,8 @@ backend:
         - npm install
     build:
       commands:
-        - npm run build || true
+        - echo "No frontend. Running backend application."
+        - npm start
   artifacts:
     baseDirectory: "/"
     files:
