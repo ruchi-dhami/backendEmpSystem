@@ -1,0 +1,16 @@
+version: 1.0
+backend:
+  phases:
+    preBuild:
+      commands:
+        - npm install
+    build:
+      commands:
+        - npm run build || true
+  artifacts:
+    baseDirectory: "/"
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
