@@ -32,20 +32,21 @@ const asynclogin = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
 const ClassCreation = async (req, res) => {
   const { className, classCode } = req.body;
-  console.log(req.body, "herrr");
   try {
-    const cName = new ClassName({ ClassName: className, ClassCode: classCode });
+    const cName = new ClassName({  className, classCode });
     const savedcName = await cName.save();
 
     // Return a success response with the saved user data
-    res.status(201).json(savedcName);
+    res.status(200).json(savedcName);
   } catch (error) {
     // Return an error response if an error occurs
     res.status(500).json({ error: error.message });
   }
 };
+
 const StudentCreation = async (req, res) => {
   const { name, className, rollNo } = req.body;
 
@@ -69,6 +70,8 @@ const StudentCreation = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+
 const Studentget = async (req, res) => {
 
   const { name, classId } = req.query;
@@ -86,6 +89,8 @@ const Studentget = async (req, res) => {
     data: allStudent,
   });
 };
+
+
 const StudentbyClass = async (req, res) => {
   const { classbyid } = req.body;
   try {
@@ -95,10 +100,12 @@ const StudentbyClass = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
 const findclass = async (req, res) => {
   const classcount = await ClassName.count();
   res.status(200).json({ classcount });
 };
+
 const allClass = async (req, res) => {
   const allStudent = await ClassName.find({});
   res.json({

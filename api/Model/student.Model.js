@@ -2,15 +2,15 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const StudentSchema = new Schema({
 
-  Name: {
+  name: {
     type: String,
     required: true
   },
- class:
-   {  type: Schema.ObjectId,
-     ref: 'class'
- },
-  RollNo: {
+  class:{  
+    type: Schema.ObjectId,
+    ref: 'class'
+  },
+  rollNo: {
     type: Number,
     required: true,
     unique:true

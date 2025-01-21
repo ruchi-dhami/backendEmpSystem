@@ -4,11 +4,15 @@ const bcrypt = require("bcrypt");
 const Schema = mongoose.Schema;
 
 const adminSchema = new Schema({
-
+  firstName: {
+    type: String
+  },
+  lastName: {
+    type: String
+  },
   email: {
     type: String,
-    required: true,
-   
+    required: true
   },
   password: {
     type: String,
@@ -36,9 +40,11 @@ adminSchema.pre('save',function(next){
 console.log("message error")
   }
 })
+
 adminSchema.pre("save", function (next) {
   const email = this.email;
   const re = /\S+@\S+\.\S+/;
+  
   if (re.test(email)) {
     next();
   } else {
@@ -46,10 +52,11 @@ adminSchema.pre("save", function (next) {
     next(error);
   }
 });
+
 adminSchema.pre("save", function (next) {
   const password = this.password;
  
-  if (password>3) {
+  if (password > 3) {
     next();
   } else {
     const error = new Error("Password must be more than 3 characters");
